@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import { Work_Sans } from "next/font/google";
+import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 
 const workSans = Work_Sans({
@@ -23,7 +24,9 @@ export default function RootLayout({
     return (
         <html lang="en" className={`dark ${workSans.variable}`}>
             <body className="antialiased">
-                <QueryProvider>{children}</QueryProvider>
+                <QueryProvider>
+                    <AuthProvider>{children}</AuthProvider>
+                </QueryProvider>
             </body>
         </html>
     );
