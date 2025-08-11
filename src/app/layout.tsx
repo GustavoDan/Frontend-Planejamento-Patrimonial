@@ -33,7 +33,7 @@ export default function RootLayout({
             lang="en"
             className={`dark ${inter.variable} ${workSans.variable}`}
         >
-            <body className="antialiased">
+            <body className="antialiased h-screen w-screen overflow-hidden">
                 <QueryProvider>
                     <AuthProvider>{children}</AuthProvider>
                 </QueryProvider>
