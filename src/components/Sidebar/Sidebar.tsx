@@ -14,8 +14,10 @@ import { ProjectionIcon } from "../icons/ProjectionIcon";
 import { HistoryIcon } from "../icons/HistoryIcon";
 import AnkaLogo from "../AnkaLogo";
 import ProfileModal from "../Profile/ProfileModal";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Sidebar = () => {
+    const { isAuthenticated } = useAuth();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>(
         {}
     );
@@ -39,6 +41,7 @@ const Sidebar = () => {
                         toggleSection("clients");
                         console.log("teste");
                     }}
+                    enabled={isAuthenticated}
                 >
                     <SidebarItem icon={<DashboardIcon />} label="Dashboard" />
                     <SidebarItem icon={<ProjectionIcon />} label="Projeção" />
