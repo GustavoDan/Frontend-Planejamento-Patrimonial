@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { QueryProvider } from "@/components/providers/QueryProvider";
-import { Work_Sans } from "next/font/google";
+import { Work_Sans, Inter } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
 
@@ -8,6 +8,13 @@ const workSans = Work_Sans({
     subsets: ["latin"],
     display: "swap",
     variable: "--font-work-sans",
+    weight: ["400", "500", "600", "700"],
+});
+
+const inter = Inter({
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-inter",
     weight: ["400", "500", "600", "700"],
 });
 
@@ -22,7 +29,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={`dark ${workSans.variable}`}>
+        <html
+            lang="en"
+            className={`dark ${inter.variable} ${workSans.variable}`}
+        >
             <body className="antialiased">
                 <QueryProvider>
                     <AuthProvider>{children}</AuthProvider>

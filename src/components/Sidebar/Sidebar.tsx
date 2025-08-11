@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ClientsIcon } from "../icons/ClientsIcon";
 import { ProspectsIcon } from "../icons/ProspectsIcon";
 import { ConsolidationIcon } from "../icons/ConsolidationIcon";
@@ -13,31 +13,30 @@ import { DashboardIcon } from "../icons/DashboardIcon";
 import { ProjectionIcon } from "../icons/ProjectionIcon";
 import { HistoryIcon } from "../icons/HistoryIcon";
 import AnkaLogo from "../AnkaLogo";
-import ProfileContainer from "../ProfileContainer";
+import ProfileModal from "../Profile/ProfileModal";
 
 const Sidebar = () => {
     const [openSections, setOpenSections] = useState<Record<string, boolean>>(
         {}
     );
 
-    const toggleSection = (section: string) => {
+    const toggleSection = useCallback((section: string) => {
         setOpenSections((prev) => ({
             ...prev,
             [section]: !prev[section],
         }));
-    };
-
+    }, []);
     return (
         <div className="w-80 h-screen px-12 pt-14 pb-7 border-[#444444] border-r flex flex-col items-center justify-center gap-14 select-none">
             <AnkaLogo />
 
-            <div className="flex-1 gap-2.5">
+            <div className="flex-1 gap-2.5 font-workSans">
                 <SidebarCollapsibleItem
                     icon={<ClientsIcon />}
                     label="Clientes"
-                    isOpen={openSections.clientes}
+                    isOpen={openSections.clients}
                     onToggle={() => {
-                        toggleSection("clientes");
+                        toggleSection("clients");
                         console.log("teste");
                     }}
                 >
@@ -57,8 +56,8 @@ const Sidebar = () => {
                 <SidebarCollapsibleItem
                     icon={<ConsolidationIcon />}
                     label="Consolidação"
-                    isOpen={openSections.consolidacao}
-                    onToggle={() => toggleSection("consolidacao")}
+                    isOpen={openSections.consolidation}
+                    onToggle={() => toggleSection("consolidation")}
                     enabled={false}
                 />
 
@@ -73,21 +72,21 @@ const Sidebar = () => {
                 <SidebarCollapsibleItem
                     icon={<CapitalizationIcon />}
                     label="Captação"
-                    isOpen={openSections.captacao}
-                    onToggle={() => toggleSection("captacao")}
+                    isOpen={openSections.capitalization}
+                    onToggle={() => toggleSection("capitalization")}
                     enabled={false}
                 />
 
                 <SidebarCollapsibleItem
                     icon={<FinanceIcon />}
                     label="Financeiro"
-                    isOpen={openSections.financeiro}
-                    onToggle={() => toggleSection("financeiro")}
+                    isOpen={openSections.finance}
+                    onToggle={() => toggleSection("finance")}
                     enabled={false}
                 />
             </div>
 
-            <ProfileContainer />
+            <ProfileModal />
         </div>
     );
 };

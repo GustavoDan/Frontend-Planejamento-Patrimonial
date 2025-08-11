@@ -21,10 +21,9 @@ const config: Config = {
                     "linear-gradient(103.64deg, rgba(246, 246, 246, 0.3) 7%, rgba(207, 51, 10, 0.3) 100%);",
             },
             fontFamily: {
-                sans: [
-                    "var(--font-work-sans)",
-                    ...defaultTheme.fontFamily.sans,
-                ],
+                sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+                inter: ["var(--font-inter)"],
+                workSans: ["var(--font-work-sans)"],
             },
             colors: {
                 background: "hsl(var(--background))",
