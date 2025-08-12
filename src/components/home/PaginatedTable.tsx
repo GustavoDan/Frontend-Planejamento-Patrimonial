@@ -15,7 +15,7 @@ import PaginationControls from "../ui/PaginationControls";
 import { ThreeDotsIcon } from "../icons/ThreeDotsIcon";
 import { useClients } from "@/hooks/useClientData";
 import { getUpdateStatus } from "@/lib/dateUtils";
-import { formatCurrency } from "@/utils/string";
+import { formatCurrency, getInitials } from "@/utils/string";
 
 const ITEMS_PER_PAGE = 4;
 
@@ -80,8 +80,8 @@ const PaginatedTable = () => {
                             >
                                 <TableCell className="flex items-center gap-x-3 pl-10 text-[#DADADA] text-xl">
                                     <Avatar className="select-none">
-                                        <AvatarFallback>
-                                            {client.name.charAt(0)}
+                                        <AvatarFallback className="text-sm">
+                                            {getInitials(client.name)}
                                         </AvatarFallback>
                                     </Avatar>
                                     {client.name}

@@ -1,7 +1,7 @@
 "use client";
 
 import { UserProfile } from "@/hooks/useUser";
-import { capitalize } from "@/utils/string";
+import { capitalize, getInitials } from "@/utils/string";
 import { useMemo } from "react";
 
 interface LoggedUserContentProps {
@@ -15,23 +15,12 @@ const LoggedUserContent = ({ userData }: LoggedUserContentProps) => {
         }
 
         const userName = userData.email.split("@")[0];
-        const nameParts = userName.split(/[._-]/).filter(Boolean);
-
-        let initials = "";
-        if (nameParts.length === 0) {
-            initials = "??";
-        } else if (nameParts.length > 1) {
-            const firstInitial = nameParts[0][0];
-            const lastInitial = nameParts[nameParts.length - 1][0];
-            initials = firstInitial + lastInitial;
-        } else {
-            initials = nameParts[0].substring(0, 2);
-        }
+        const initials = getInitials(userName);
 
         return {
             userName,
             email: userData.email,
-            initials: initials.toUpperCase(),
+            initials: initials,
         };
     }, [userData]);
 
