@@ -1,12 +1,25 @@
+"use client";
+
+import { useInsuranceStatsByProfile } from "@/hooks/useInsuranceStats";
 import CircularProgress from "../ui/CircularProgress";
 import InsuranceContainer from "./InsuranceContainer";
 
 const InsuranceSummary = () => {
+    const { data, isError } = useInsuranceStatsByProfile();
+
+    if (isError || !data) {
+        return (
+            <div className="flex items-center justify-center text-destructive text-center py-80">
+                Erro ao carregar dados.
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col gap-7">
             <InsuranceContainer>
                 <CircularProgress
-                    percentage={60}
+                    percentage={data.withChild.percentage}
                     showEmptyTrail={false}
                     gradientColors={{
                         start: "#6EE7B7",
@@ -18,7 +31,7 @@ const InsuranceSummary = () => {
 
             <InsuranceContainer>
                 <CircularProgress
-                    percentage={50}
+                    percentage={data.single.percentage}
                     showEmptyTrail={false}
                     gradientColors={{
                         start: "#6EE7B7",
@@ -30,7 +43,7 @@ const InsuranceSummary = () => {
 
             <InsuranceContainer>
                 <CircularProgress
-                    percentage={40}
+                    percentage={data.withDependents.percentage}
                     showEmptyTrail={false}
                     gradientColors={{
                         start: "#6EE7B7",

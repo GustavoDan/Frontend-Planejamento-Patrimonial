@@ -13,113 +13,15 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import PaginationControls from "../ui/PaginationControls";
 import { ThreeDotsIcon } from "../icons/ThreeDotsIcon";
+import { useClients } from "@/hooks/useClientData";
+import { getUpdateStatus } from "@/lib/dateUtils";
+import { formatCurrency } from "@/utils/string";
 
-const clientsData = [
-    {
-        id: 1,
-        name: "Matheus Lima",
-        avatar: "/avatars/matheus.png",
-        patrimony: 45678910,
-        status: "+ 6 meses",
-        statusVariant: "danger",
-    },
-    {
-        id: 2,
-        name: "Emerson da Rocha",
-        avatar: "/avatars/emerson.png",
-        patrimony: 12345678,
-        status: "+ 6 meses",
-        statusVariant: "danger",
-    },
-    {
-        id: 3,
-        name: "Gisele Bulhões",
-        avatar: "/avatars/gisele.png",
-        patrimony: 89012345,
-        status: "+ 3 meses",
-        statusVariant: "warning",
-    },
-    {
-        id: 4,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-    {
-        id: 5,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-    {
-        id: 6,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-    {
-        id: 7,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-    {
-        id: 8,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-    {
-        id: 9,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-    {
-        id: 10,
-        name: "Carmen Ferreira",
-        avatar: "/avatars/carmen.png",
-        patrimony: 56789012,
-        status: "- 3 meses",
-        statusVariant: "success",
-    },
-];
-
-const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-    }).format(value / 100);
-};
+const ITEMS_PER_PAGE = 4;
 
 const PaginatedTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
-    const totalPages = useMemo(
-        () => Math.ceil(clientsData.length / itemsPerPage),
-        [itemsPerPage]
-    );
-
-    const currentTableData = useMemo(
-        () =>
-            clientsData.slice(
-                (currentPage - 1) * itemsPerPage,
-                currentPage * itemsPerPage
-            ),
-        [currentPage, itemsPerPage]
-    );
+    const { data, isError } = useClients(currentPage, 4);
 
     const handlePageChange = useCallback(
         (newPage: number) => {
@@ -128,15 +30,26 @@ const PaginatedTable = () => {
         [setCurrentPage]
     );
 
-    const emptyRowsCount = useMemo(
-        () => itemsPerPage - currentTableData.length,
-        [itemsPerPage, currentTableData.length]
-    );
+    const emptyRowsCount = useMemo(() => {
+        if (!data) {
+            return 0;
+        }
+        const count = ITEMS_PER_PAGE - data.clients.length;
+        return Math.max(0, count);
+    }, [data]);
+
     const placeholders = useMemo(
         () => Array.from({ length: emptyRowsCount }),
         [emptyRowsCount]
     );
 
+    if (isError || !data) {
+        return (
+            <div className="flex items-center justify-center text-destructive text-center py-[11.5rem]">
+                Erro ao carregar dados.
+            </div>
+        );
+    }
     return (
         <>
             <Table>
@@ -155,32 +68,50 @@ const PaginatedTable = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {currentTableData.map((client) => (
-                        <TableRow
-                            key={client.id}
-                            className="border-b-[#292929] hover:bg-[#292929]/50"
-                        >
-                            <TableCell className="flex items-center gap-x-3 pl-10 text-[#DADADA] text-xl">
-                                <Avatar className="select-none">
-                                    <AvatarFallback>
-                                        {client.name.charAt(0)}
-                                    </AvatarFallback>
-                                </Avatar>
-                                {client.name}
-                            </TableCell>
-                            <TableCell className="text-[#DADADA] text-xl">
-                                {formatCurrency(client.patrimony)}
-                            </TableCell>
-                            <TableCell>
-                                <Badge variant={client.statusVariant as any}>
-                                    {client.status}
-                                </Badge>
-                            </TableCell>
-                            <TableCell className="flex items-end justify-end pr-8">
-                                <ThreeDotsIcon />
-                            </TableCell>
-                        </TableRow>
-                    ))}
+                    {data.clients.map((client) => {
+                        const status = getUpdateStatus(
+                            client.wallet?.updatedAt
+                        );
+
+                        return (
+                            <TableRow
+                                key={client.id}
+                                className="border-b-[#292929] hover:bg-[#292929]/50"
+                            >
+                                <TableCell className="flex items-center gap-x-3 pl-10 text-[#DADADA] text-xl">
+                                    <Avatar className="select-none">
+                                        <AvatarFallback>
+                                            {client.name.charAt(0)}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    {client.name}
+                                </TableCell>
+                                <TableCell className="text-[#DADADA] text-xl">
+                                    {client.wallet
+                                        ? formatCurrency(
+                                              parseFloat(
+                                                  client.wallet.totalValue
+                                              )
+                                          )
+                                        : "N/A"}
+                                </TableCell>
+                                <TableCell>
+                                    {status ? (
+                                        <Badge variant={status.color}>
+                                            {status.text}
+                                        </Badge>
+                                    ) : (
+                                        <span className="text-lg text-muted-foreground">
+                                            Nunca
+                                        </span>
+                                    )}
+                                </TableCell>
+                                <TableCell className="flex items-end justify-end pr-8">
+                                    <ThreeDotsIcon />
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
                     {placeholders.map((_, index) => (
                         <TableRow
                             key={`placeholder-${index}`}
@@ -200,7 +131,7 @@ const PaginatedTable = () => {
             <div className="flex items-center justify-center gap-x-4 border-t border-t-[#292929] py-5">
                 <PaginationControls
                     currentPage={currentPage}
-                    totalPages={totalPages}
+                    totalPages={data?.meta.pageCount}
                     onPageChange={handlePageChange}
                 />
             </div>

@@ -48,16 +48,20 @@ export const DataBar = ({
         <div className={cn("flex items-center gap-x-4", className)}>
             <span className="w-4/12 text-[#949494] text-nowrap">{label}</span>
 
-            <div className="h-9 w-8/12 rounded-[2rem] bg-[#353535]">
-                <div
-                    className={clsx(
-                        "h-full rounded-[2rem] flex items-center pl-2 text-white",
-                        styles.pill,
-                        styles.glow
-                    )}
-                    style={{ width: `${percentage}%` }}
-                >
-                    {percentage}%
+            <div className="relative h-9 w-8/12 rounded-[2rem] bg-[#353535]">
+                {percentage > 0 && (
+                    <div
+                        className={clsx(
+                            "h-full rounded-[2rem]",
+                            styles.pill,
+                            styles.glow
+                        )}
+                        style={{ width: `${percentage}%` }}
+                    />
+                )}
+
+                <div className="absolute inset-0 flex items-center justify-start pl-2">
+                    <span className="text-white">{percentage}%</span>
                 </div>
             </div>
         </div>

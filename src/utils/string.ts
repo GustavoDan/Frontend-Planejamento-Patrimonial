@@ -8,3 +8,10 @@ type CapitalizeFn = {
 export const capitalize = ((string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }) as CapitalizeFn;
+
+export const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(value / 100);
+};
