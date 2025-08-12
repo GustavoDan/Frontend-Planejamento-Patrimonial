@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import { ClientsIcon } from "../icons/ClientsIcon";
 import { ProspectsIcon } from "../icons/ProspectsIcon";
 import { ConsolidationIcon } from "../icons/ConsolidationIcon";

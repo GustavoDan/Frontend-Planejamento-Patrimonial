@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { DataBar } from "../ui/DataBar";
 import { useAlignmentDistribution } from "@/hooks/usePlanningData";
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 
-type Client = { id: string; [key: string]: any };
+type Client = { id: string; [key: string]: unknown };
 type AlignmentData = {
     alignmentPercentage: number;
     category: "green" | "yellow-light" | "yellow-dark" | "red";

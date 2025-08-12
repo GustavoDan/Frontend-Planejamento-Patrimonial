@@ -50,7 +50,7 @@ function categorizeClient(
         return "single";
     }
     const hasChild = client.familyProfile.some(
-        (member: any) => member?.relationship === "CHILD"
+        (member) => member?.relationship === "CHILD"
     );
     return hasChild ? "with-child" : "single";
 }
