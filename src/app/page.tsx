@@ -7,36 +7,34 @@ import PlanningSummary from "@/components/home/PlanningSummary";
 
 export default function Home() {
     return (
-        <>
-            <PageContainer>
-                <div className="flex gap-6 h-full p-24">
-                    <div className="flex flex-col gap-6">
-                        <div className="flex gap-6">
-                            <ContainerWithTitle title="Alinhamento com planejamento">
-                                <AlignmentSummary />
-                            </ContainerWithTitle>
-                            <ContainerWithTitle
-                                title="Clientes com planejamento"
-                                className="p-10"
-                            >
-                                <PlanningSummary />
-                            </ContainerWithTitle>
-                        </div>
+        <PageContainer>
+            <div className="flex gap-6 h-full p-24">
+                <div className="flex flex-col gap-6">
+                    <div className="flex gap-6">
+                        <ContainerWithTitle title="Alinhamento com planejamento">
+                            <AlignmentSummary />
+                        </ContainerWithTitle>
                         <ContainerWithTitle
-                            title="Atualização do planejamento"
-                            separateTitleFromContent={false}
+                            title="Clientes com planejamento"
+                            className="p-10"
                         >
-                            <PaginatedTable />
+                            <PlanningSummary />
                         </ContainerWithTitle>
                     </div>
                     <ContainerWithTitle
-                        title="Perfis com seguro pelo total"
-                        className="p-8"
+                        title="Atualização do planejamento"
+                        separateTitleFromContent={false}
                     >
-                        <InsuranceSummary />
+                        <PaginatedTable />
                     </ContainerWithTitle>
                 </div>
-            </PageContainer>
-        </>
+                <ContainerWithTitle
+                    title="Perfis com seguro pelo total"
+                    className="p-8"
+                >
+                    <InsuranceSummary />
+                </ContainerWithTitle>
+            </div>
+        </PageContainer>
     );
 }

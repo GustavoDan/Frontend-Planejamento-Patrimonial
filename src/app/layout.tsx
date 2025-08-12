@@ -3,6 +3,7 @@ import { QueryProvider } from "@/components/providers/QueryProvider";
 import { Work_Sans, Inter } from "next/font/google";
 import { AuthProvider } from "@/contexts/AuthContext";
 import "./globals.css";
+import { SidebarProvider } from "@/contexts/SidebarContext";
 
 const workSans = Work_Sans({
     subsets: ["latin"],
@@ -35,7 +36,9 @@ export default function RootLayout({
         >
             <body className="antialiased h-screen w-screen overflow-hidden">
                 <QueryProvider>
-                    <AuthProvider>{children}</AuthProvider>
+                    <AuthProvider>
+                        <SidebarProvider>{children}</SidebarProvider>
+                    </AuthProvider>
                 </QueryProvider>
             </body>
         </html>

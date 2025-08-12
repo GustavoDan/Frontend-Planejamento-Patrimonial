@@ -1,8 +1,15 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AnkaLogo = () => {
+    const router = useRouter();
     return (
-        <div className="relative h-14 w-44 bg-anka-gradient-border p-[0.08rem] rounded-[2.44rem] flex-shrink-0 overflow-hidden">
+        <div
+            className="relative h-14 w-44 bg-anka-gradient-border p-[0.08rem] rounded-[2.44rem] flex-shrink-0 overflow-hidden"
+            onPointerUp={() => router.push("/")}
+        >
             <div className="size-full rounded-[2.44rem] bg-background bg-anka-gradient" />
             <Image
                 src="/anka-logo.svg"

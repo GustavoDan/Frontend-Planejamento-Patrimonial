@@ -15,19 +15,14 @@ import { HistoryIcon } from "../icons/HistoryIcon";
 import AnkaLogo from "../AnkaLogo";
 import ProfileModal from "../Profile/ProfileModal";
 import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
+import { useSidebar } from "@/contexts/SidebarContext";
 
 const Sidebar = () => {
+    const router = useRouter();
     const { isAuthenticated } = useAuth();
-    const [openSections, setOpenSections] = useState<Record<string, boolean>>(
-        {}
-    );
+    const { openSections, toggleSection } = useSidebar();
 
-    const toggleSection = useCallback((section: string) => {
-        setOpenSections((prev) => ({
-            ...prev,
-            [section]: !prev[section],
-        }));
-    }, []);
     return (
         <div className="w-80 h-screen px-12 pt-14 pb-7 border-[#444444] border-r flex flex-col items-center justify-center gap-14 select-none">
             <AnkaLogo />
@@ -43,9 +38,22 @@ const Sidebar = () => {
                     }}
                     enabled={isAuthenticated}
                 >
-                    <SidebarItem icon={<DashboardIcon />} label="Dashboard" />
-                    <SidebarItem icon={<ProjectionIcon />} label="Projeção" />
-                    <SidebarItem icon={<HistoryIcon />} label="Histórico" />
+                    <SidebarItem
+                        icon={<DashboardIcon />}
+                        label="Dashboard"
+                        onPointerUp={() => router.push("/dashboard")}
+                        href="/dashboard"
+                    />
+                    <SidebarItem
+                        icon={<ProjectionIcon />}
+                        label="Projeção"
+                        href="/projection"
+                    />
+                    <SidebarItem
+                        icon={<HistoryIcon />}
+                        label="Histórico"
+                        href="/history"
+                    />
                 </SidebarCollapsibleItem>
 
                 <SidebarCollapsibleItem

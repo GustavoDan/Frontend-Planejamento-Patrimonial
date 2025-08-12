@@ -44,16 +44,23 @@ A arquitetura do frontend foi projetada para ser moderna, escalável e de fácil
 
 ## Suposições e Esclarecimentos
 
--   **Escopo da Distribuição de Alinhamento:** Para o card de "Alinhamento com planejamento", a distribuição percentual (`0%`, `33.33%`, etc.) é calculada com base **apenas nos clientes que possuem um planejamento ativo** (ou seja, aqueles com uma carteira e pelo menos uma meta cadastrada). Clientes sem planejamento são excluídos do denominador do cálculo percentual para garantir que a métrica reflita a saúde dos planos existentes, e não a quantidade de clientes que ainda não foram configurados.
+-   **Design e Navegação da Sidebar (Menu Lateral):** O design do Figma apresentava duas versões ambíguas da sidebar. Para criar uma solução robusta e escalável, optei por implementar um **modelo híbrido**, combinando as melhores características de ambos os designs e tomando as seguintes decisões de UX:
+    -   **Estrutura Completa:** Foi adotada a estrutura da sidebar mais completa, com múltiplas seções (Prospects, CRM, etc.), pois ela representa um layout de aplicação mais realista e preparado para o crescimento futuro.
+    -   **Menus Colapsáveis:** A seção principal, "Clientes", que contém os itens do escopo do case (Dashboard, Projeção, Histórico), foi implementada como um menu colapsável. Isso organiza a navegação e mantém a interface limpa.
+    -   **Itens Desabilitados:** Todos os itens de menu que não fazem parte do escopo funcional deste case (ex: CRM, Captação, Financeiro) foram incluídos no layout, mas estão visualmente desabilitados. Isso demonstra como a aplicação completa se pareceria, sem deixar a UI "quebrada".
+    -   **Navegação para a Homepage:** Esta estrutura colocou a página principal, "Clientes", como um menu colapsável. Para garantir que o usuário sempre tenha um ponto de retorno claro e acessível para a homepage, foi implementado um padrão de navegação comum: **clicar no logo principal ("Anka") no topo da sidebar sempre levará o usuário de volta à página principal.**
+    -   **Perfil do Usuário:** O indicador do usuário logado foi posicionado na parte inferior da sidebar, seguindo um padrão de UX moderno e eficaz para ações de conta, esse indicador também serve para abrir um modal de login.
 
--   **Lógica do Card "Atualização do planejamento":** Para este componente, foi feita a seguinte interpretação da lógica de negócio:
+*   **Escopo da Distribuição de Alinhamento:** Para o card de "Alinhamento com planejamento", a distribuição percentual (`0%`, `33.33%`, etc.) é calculada com base **apenas nos clientes que possuem um planejamento ativo** (ou seja, aqueles com uma carteira e pelo menos uma meta cadastrada). Clientes sem planejamento são excluídos do denominador do cálculo percentual para garantir que a métrica reflita a saúde dos planos existentes, e não a quantidade de clientes que ainda não foram configurados.
+
+*   **Lógica do Card "Atualização do planejamento":** Para este componente, foi feita a seguinte interpretação da lógica de negócio:
 
     -   A "Última atualização" refere-se ao campo `updatedAt` da `Wallet` do cliente.
     -   A API foi otimizada para retornar esta informação na rota de listagem de clientes (`GET /clients`) para evitar múltiplas chamadas (problema N+1).
     -   A categorização de cores foi definida da seguinte forma: **Verde** (atualizado nos últimos 3 meses), **Laranja** (atualizado entre 3-6 meses) e **Vermelho** (desatualizado há mais de 6 meses).
     -   A notação `+/-` no Figma foi interpretada como um placeholder estilístico, e a lógica implementada foca na duração do tempo passado.
 
--   **Interpretação da Lógica do Card "Perfis com seguro":** Esta funcionalidade exigiu a interpretação de um design visual vago e a criação de regras de negócio para torná-la funcional. As seguintes decisões foram tomadas:
+*   **Interpretação da Lógica do Card "Perfis com seguro":** Esta funcionalidade exigiu a interpretação de um design visual vago e a criação de regras de negócio para torná-la funcional. As seguintes decisões foram tomadas:
     -   **Definição da Métrica:** A porcentagem exibida (ex: 60%) foi interpretada como a **penetração de seguros dentro de um perfil de cliente específico**. A fórmula é: `(número de clientes no perfil com seguro / número total de clientes no perfil) * 100`.
     -   **Categorização de Perfil a partir de Dados JSON:** A categorização dos clientes foi implementada no frontend, processando o campo `familyProfile` (que é um JSON) para cada cliente. As regras de negócio definidas foram:
         -   **"Com filho":** Clientes cujo `familyProfile` contém pelo menos um membro com a relação `CHILD`.
