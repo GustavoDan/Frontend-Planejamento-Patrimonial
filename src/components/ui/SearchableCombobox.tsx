@@ -55,7 +55,7 @@ const SearchableCombobox = ({
                             />
                             <ChevronDownIcon
                                 color="#C9C9C9"
-                                className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 shrink-0 opacity-50"
+                                className="absolute right-8 top-1/2 -translate-y-1/2 h-4 w-4 shrink-0 opacity-50 z-10"
                             />
                         </div>
 
@@ -73,13 +73,17 @@ const SearchableCombobox = ({
                                             <CommandItem
                                                 key={client.id}
                                                 value={client.id}
-                                                onSelect={(currentValue) => {
+                                                onPointerDown={(event) => {
+                                                    const currentValue =
+                                                        event.currentTarget
+                                                            .dataset.value ||
+                                                        "";
+
                                                     onValueChange(
                                                         currentValue === value
-                                                            ? null
+                                                            ? ""
                                                             : currentValue
                                                     );
-                                                    setIsOpen(false);
                                                 }}
                                                 className="text-2xl font-workSans text-white"
                                             >
