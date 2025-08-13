@@ -47,6 +47,7 @@ const Sidebar = () => {
                     <SidebarItem
                         icon={<ProjectionIcon />}
                         label="Projeção"
+                        onPointerUp={() => router.push("/projection")}
                         href="/projection"
                     />
                     <SidebarItem

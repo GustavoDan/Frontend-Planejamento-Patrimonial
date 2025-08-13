@@ -9,10 +9,12 @@ export const capitalize = ((string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }) as CapitalizeFn;
 
-export const formatCurrency = (value: number) => {
+export const formatCurrency = (value: number, withoutCents = false) => {
     return new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
+        minimumFractionDigits: withoutCents ? 0 : 2,
+        maximumFractionDigits: withoutCents ? 0 : 2,
     }).format(value);
 };
 
