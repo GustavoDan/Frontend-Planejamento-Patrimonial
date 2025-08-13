@@ -1,4 +1,3 @@
-import TextInput from "../TextInput";
 import {
     Form,
     FormControl,
@@ -13,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { LoginData, loginSchema } from "@/schemas/auth.schema";
 import { useLoginMutation } from "@/hooks/useAuthMutations";
 import { useCallback, useEffect, useMemo } from "react";
+import TextInput from "../ui/TextInput";
 
 interface LoginFormProps {
     isOpen: boolean;

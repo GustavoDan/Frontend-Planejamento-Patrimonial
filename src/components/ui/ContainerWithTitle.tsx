@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { forwardRef, HTMLAttributes } from "react";
-import { ThreeDotsIcon } from "./icons/ThreeDotsIcon";
+import { ThreeDotsIcon } from "../icons/ThreeDotsIcon";
 
 interface ContainerWithTitleProps extends HTMLAttributes<HTMLDivElement> {
     title: string;

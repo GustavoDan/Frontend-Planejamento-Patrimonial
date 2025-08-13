@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { Input } from "./ui/input";
 import { forwardRef, InputHTMLAttributes } from "react";
+import { Input } from "./input";
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string;

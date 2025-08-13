@@ -11,7 +11,7 @@ import SidebarItem from "./SidebarItem";
 import { DashboardIcon } from "../icons/DashboardIcon";
 import { ProjectionIcon } from "../icons/ProjectionIcon";
 import { HistoryIcon } from "../icons/HistoryIcon";
-import AnkaLogo from "../AnkaLogo";
+import AnkaLogo from "../ui/AnkaLogo";
 import ProfileModal from "../Profile/ProfileModal";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";

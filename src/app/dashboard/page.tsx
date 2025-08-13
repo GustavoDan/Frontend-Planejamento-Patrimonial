@@ -1,7 +1,7 @@
 import DisplayAssetsClasses from "@/components/dashboard/DisplayAssetsClasses";
 import DisplayClientMoney from "@/components/dashboard/DisplayClientMoney";
 import IndicatorsSection from "@/components/dashboard/IndicatorsSection";
-import PageContainer from "@/components/PageContainer";
+import PageContainer from "@/components/ui/PageContainer";
 import SearchableCombobox from "@/components/ui/SearchableCombobox";
 
 export default function Dashboard() {

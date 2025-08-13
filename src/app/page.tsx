@@ -1,9 +1,9 @@
-import ContainerWithTitle from "@/components/ContainerWithTitle";
 import AlignmentSummary from "@/components/home/AlignmentSummary";
 import InsuranceSummary from "@/components/home/InsuranceSummary";
-import PageContainer from "@/components/PageContainer";
 import PaginatedTable from "@/components/home/PaginatedTable";
 import PlanningSummary from "@/components/home/PlanningSummary";
+import ContainerWithTitle from "@/components/ui/ContainerWithTitle";
+import PageContainer from "@/components/ui/PageContainer";
 
 export default function Home() {
     return (

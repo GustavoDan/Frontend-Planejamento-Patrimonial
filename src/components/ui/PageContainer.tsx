@@ -1,9 +1,9 @@
 "use client";
 
 import { ReactNode } from "react";
-import Sidebar from "./Sidebar/Sidebar";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
+import Sidebar from "../Sidebar/Sidebar";
 
 interface PageContainerProps {
     className?: string;
