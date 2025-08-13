@@ -10,6 +10,9 @@ interface CircularProgressProps {
     innerCircleColor?: string;
     showEmptyTrail?: boolean;
     emptyTrailColor?: string;
+    primaryLabel?: string;
+    primaryLabelColor?: string;
+    primaryLabelFontSize?: string;
     label?: string;
     labelColor?: string;
     labelFontSize?: string;
@@ -31,6 +34,9 @@ const CircularProgress = ({
     innerCircleColor = "#353535",
     showEmptyTrail = true,
     emptyTrailColor = "#2E2E2E",
+    primaryLabel,
+    primaryLabelColor,
+    primaryLabelFontSize,
     label,
     labelColor,
     labelFontSize,
@@ -157,6 +163,17 @@ const CircularProgress = ({
                         className="text-nowrap"
                     >
                         {percentage} %
+                    </span>
+                )}
+                {!showPercentage && primaryLabel && (
+                    <span
+                        style={{
+                            color: primaryLabelColor || gradientColors.end,
+                            fontSize: primaryLabelFontSize || "1.75rem",
+                        }}
+                        className="text-nowrap"
+                    >
+                        {primaryLabel}
                     </span>
                 )}
                 {label && (

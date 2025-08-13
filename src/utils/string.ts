@@ -16,6 +16,17 @@ export const formatCurrency = (value: number) => {
     }).format(value);
 };
 
+export const splitCurrency = (value: string) => {
+    const match = value
+        .trim()
+        .replace(/\u00A0/g, " ")
+        .match(/^(R\$ )(\d{1,3}(?:\.\d{3})*|\d+)(,\d{2})$/);
+    if (!match) {
+        throw new Error(value);
+    }
+    return { currency: match[1], value: match[2], cents: match[3] };
+};
+
 export const getInitials = (userName: string) => {
     const nameParts = userName
         .trim()

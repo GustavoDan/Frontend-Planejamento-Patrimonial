@@ -27,7 +27,7 @@ const PlanningSummary = () => {
                 end: "#D8FF2C",
             }}
             percentageColor="white"
-            labelColor="7C7C7C"
+            labelColor="#7C7C7C"
             labelFontSize="2rem"
             percentageFontSize="2.875rem"
             showGlow={true}
