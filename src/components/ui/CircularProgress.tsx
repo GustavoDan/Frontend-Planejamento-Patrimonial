@@ -162,7 +162,7 @@ const CircularProgress = ({
                         }}
                         className="text-nowrap"
                     >
-                        {percentage} %
+                        {percentage.toFixed(2)} %
                     </span>
                 )}
                 {!showPercentage && primaryLabel && (

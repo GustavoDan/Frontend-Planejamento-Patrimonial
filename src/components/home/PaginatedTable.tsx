@@ -97,7 +97,10 @@ const PaginatedTable = () => {
                                 </TableCell>
                                 <TableCell>
                                     {status ? (
-                                        <Badge variant={status.color}>
+                                        <Badge
+                                            className="text-nowrap"
+                                            variant={status.color}
+                                        >
                                             {status.text}
                                         </Badge>
                                     ) : (
