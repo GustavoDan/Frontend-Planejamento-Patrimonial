@@ -15,7 +15,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronDownIcon } from "../icons/ChevronDownIcon";
 import { useAllClients } from "@/hooks/useAllClients";
 
@@ -30,7 +30,10 @@ const SearchableCombobox = ({
 }: SearchableComboboxProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const { data: allClients } = useAllClients();
-    const selectedClient = allClients?.find((client) => client.id === value);
+    const selectedClient = useMemo(
+        () => allClients?.find((client) => client.id === value),
+        [allClients, value]
+    );
 
     return (
         <Popover open={isOpen}>
@@ -46,7 +49,11 @@ const SearchableCombobox = ({
                                 value={
                                     isOpen ? undefined : selectedClient?.name
                                 }
-                                onFocus={() => setIsOpen(true)}
+                                onFocus={(event) => {
+                                    event.currentTarget.value = "";
+                                    event.currentTarget.innerText = "";
+                                    setIsOpen(true);
+                                }}
                                 className={cn(
                                     "w-80 rounded-[2rem] font-workSans text-2xl placeholder:text-[#919191]",
                                     "border-2 border-[#C9C9C9] bg-[#101010] text-white hover:bg-neutral-800",
