@@ -7,6 +7,7 @@ import {
     ReactNode,
     useCallback,
 } from "react";
+import { useAuth } from "./AuthContext";
 
 interface SidebarContextType {
     openSections: Record<string, boolean>;
@@ -16,8 +17,9 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export function SidebarProvider({ children }: { children: ReactNode }) {
+    const { isAuthenticated } = useAuth();
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-        clients: true,
+        clients: isAuthenticated,
     });
 
     const toggleSection = useCallback((section: string) => {

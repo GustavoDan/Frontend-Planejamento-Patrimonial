@@ -34,7 +34,7 @@ export default function RootLayout({
             lang="en"
             className={`dark ${inter.variable} ${workSans.variable}`}
         >
-            <body className="antialiased h-screen w-screen overflow-hidden">
+            <body className="antialiased min-h-screen w-screen overflow-x-hidden">
                 <QueryProvider>
                     <AuthProvider>
                         <SidebarProvider>{children}</SidebarProvider>

@@ -14,18 +14,18 @@ const PageContainer = ({ className, children }: PageContainerProps) => {
     const { isAuthenticated } = useAuth();
 
     return (
-        <div className="flex size-full">
+        <div className="flex min-h-screen">
             <Sidebar />
             <main
                 className={cn(
-                    "flex flex-col items-center justify-center",
+                    "flex flex-col items-center justify-center w-full",
                     className
                 )}
             >
                 {isAuthenticated ? (
                     children
                 ) : (
-                    <div className="flex items-center justify-center size-full text-center text-destructive text-9xl">
+                    <div className="text-destructive text-7xl">
                         Faça login para usar o site
                     </div>
                 )}

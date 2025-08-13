@@ -23,17 +23,18 @@ const Sidebar = () => {
     const { openSections, toggleSection } = useSidebar();
 
     return (
-        <div className="w-80 h-screen px-12 pt-14 pb-7 border-[#444444] border-r flex flex-col items-center justify-center gap-14 select-none">
-            <AnkaLogo />
+        <div className="min-w-80 min-h-screen px-12 pt-14 pb-7 border-[#444444] border-r flex flex-col items-center justify-center gap-14 select-none">
+            <div className="fixed top-14">
+                <AnkaLogo />
+            </div>
 
-            <div className="flex-1 gap-2.5 font-workSans">
+            <div className="flex-1 gap-2.5 font-workSans fixed top-40">
                 <SidebarCollapsibleItem
                     icon={<ClientsIcon />}
                     label="Clientes"
                     isOpen={openSections.clients}
                     onToggle={() => {
                         toggleSection("clients");
-                        console.log("teste");
                     }}
                     enabled={isAuthenticated}
                 >
