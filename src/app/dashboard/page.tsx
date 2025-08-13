@@ -1,7 +1,7 @@
 "use client";
 
 import DisplayAssetsClasses from "@/components/dashboard/DisplayAssetsClasses";
-import DisplayClientMoney from "@/components/dashboard/DisplayClientMoney";
+import DisplayClientMoney from "@/components/ui/DisplayClientMoney";
 import IndicatorsSection from "@/components/dashboard/IndicatorsSection";
 import PageContainer from "@/components/ui/PageContainer";
 import SearchableCombobox from "@/components/ui/SearchableCombobox";
@@ -19,7 +19,11 @@ export default function Dashboard() {
                         setValue(value);
                     }}
                 />
-                <DisplayClientMoney walletBalance={879930} />
+                <DisplayClientMoney
+                    label="Total Alocado"
+                    walletBalance={879930}
+                    valorization={12.37}
+                />
                 <DisplayAssetsClasses />
                 <IndicatorsSection />
             </div>

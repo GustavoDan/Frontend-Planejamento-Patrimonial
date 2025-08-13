@@ -16,6 +16,11 @@ export const formatCurrency = (value: number) => {
     }).format(value);
 };
 
+export const formatSignedNumber = (value: number) =>
+    new Intl.NumberFormat("pt-BR", {
+        signDisplay: "always",
+    }).format(value);
+
 export const splitCurrency = (value: string) => {
     const match = value
         .trim()
