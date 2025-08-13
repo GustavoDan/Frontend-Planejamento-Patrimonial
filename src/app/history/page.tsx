@@ -3,7 +3,6 @@
 import HistoryContainer from "@/components/history/HistoryContainer";
 import ViewSimulationButton from "@/components/history/ViewSimulationButton";
 import { ThreeDotsIcon } from "@/components/icons/ThreeDotsIcon";
-import { Button } from "@/components/ui/button";
 import PageContainer from "@/components/ui/PageContainer";
 import PaginationControls from "@/components/ui/PaginationControls";
 import SearchableCombobox from "@/components/ui/SearchableCombobox";
