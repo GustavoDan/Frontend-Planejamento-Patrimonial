@@ -1,3 +1,5 @@
+"use client";
+
 import DisplayAssetsClasses from "@/components/dashboard/DisplayAssetsClasses";
 import DisplayClientMoney from "@/components/dashboard/DisplayClientMoney";
 import IndicatorsSection from "@/components/dashboard/IndicatorsSection";
@@ -8,7 +10,7 @@ export default function Dashboard() {
     return (
         <PageContainer>
             <div className="size-full py-16 pl-24 pr-20 flex flex-col gap-6">
-                <SearchableCombobox />
+                <SearchableCombobox value="" onValueChange={(value) => {}} />
                 <DisplayClientMoney walletBalance={879930} />
                 <DisplayAssetsClasses />
                 <IndicatorsSection />

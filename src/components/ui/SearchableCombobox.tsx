@@ -17,25 +17,20 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState } from "react";
 import { ChevronDownIcon } from "../icons/ChevronDownIcon";
+import { useAllClients } from "@/hooks/useAllClients";
 
-const mockData = [
-    { value: "matheus-silveira", label: "Matheus Silveira" },
-    { value: "pedro-magalhaes", label: "Pedro Magalhães" },
-    { value: "larissa-alves", label: "Larissa Alves" },
-    { value: "fernando-coelho", label: "Fernando Coelho" },
-    { value: "debora-matto", label: "Débora Matto" },
-    { value: "next.js", label: "Next.js" },
-    { value: "sveltekit", label: "SvelteKit" },
-    { value: "nuxt.js", label: "Nuxt.js" },
-    { value: "remix", label: "Remix" },
-    { value: "astro", label: "Astro" },
-];
+interface SearchableComboboxProps {
+    value: string | null;
+    onValueChange: (value: string | null) => void;
+}
 
-const SearchableCombobox = () => {
+const SearchableCombobox = ({
+    value,
+    onValueChange,
+}: SearchableComboboxProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [value, setValue] = useState("");
-
-    const selectedLabel = mockData.find((data) => data.value === value)?.label;
+    const { data: allClients } = useAllClients();
+    const selectedClient = allClients?.find((client) => client.id === value);
 
     return (
         <Popover open={isOpen}>
@@ -48,7 +43,9 @@ const SearchableCombobox = () => {
                                 onBlur={() => {
                                     setIsOpen(false);
                                 }}
-                                value={isOpen ? undefined : selectedLabel}
+                                value={
+                                    isOpen ? undefined : selectedClient?.name
+                                }
                                 onFocus={() => setIsOpen(true)}
                                 className={cn(
                                     "w-80 rounded-[2rem] font-workSans text-2xl placeholder:text-[#919191]",
@@ -72,21 +69,21 @@ const SearchableCombobox = () => {
                                 </CommandEmpty>
                                 <ScrollArea className="h-48">
                                     <CommandGroup>
-                                        {mockData.map((data) => (
+                                        {allClients?.map((client) => (
                                             <CommandItem
-                                                key={data.value}
-                                                value={data.value}
+                                                key={client.id}
+                                                value={client.id}
                                                 onSelect={(currentValue) => {
-                                                    setValue(
+                                                    onValueChange(
                                                         currentValue === value
-                                                            ? ""
+                                                            ? null
                                                             : currentValue
                                                     );
                                                     setIsOpen(false);
                                                 }}
                                                 className="text-2xl font-workSans text-white"
                                             >
-                                                {data.label}
+                                                {client.name}
                                             </CommandItem>
                                         ))}
                                     </CommandGroup>
