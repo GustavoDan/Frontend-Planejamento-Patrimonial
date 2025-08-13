@@ -52,6 +52,7 @@ const Sidebar = () => {
                     <SidebarItem
                         icon={<HistoryIcon />}
                         label="Histórico"
+                        onPointerUp={() => router.push("/history")}
                         href="/history"
                     />
                 </SidebarCollapsibleItem>
