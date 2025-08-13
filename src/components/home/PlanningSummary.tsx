@@ -3,16 +3,18 @@
 import { useClientStats } from "@/hooks/useClientStats";
 import { UpRightArrowIcon } from "../icons/UpRightArrowIcon";
 import CircularProgress from "../ui/CircularProgress";
+import Loading from "../ui/Loading";
+import Error from "../ui/Error";
 
 const PlanningSummary = () => {
-    const { data, isError } = useClientStats();
+    const { data, isLoading, isError } = useClientStats();
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     if (isError || !data) {
-        return (
-            <div className="flex items-center justify-center text-destructive text-center py-14">
-                Erro ao carregar dados.
-            </div>
-        );
+        return <Error />;
     }
 
     return (

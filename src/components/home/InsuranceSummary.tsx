@@ -3,16 +3,18 @@
 import { useInsuranceStatsByProfile } from "@/hooks/useInsuranceStats";
 import CircularProgress from "../ui/CircularProgress";
 import InsuranceContainer from "./InsuranceContainer";
+import Loading from "../ui/Loading";
+import Error from "../ui/Error";
 
 const InsuranceSummary = () => {
-    const { data, isError } = useInsuranceStatsByProfile();
+    const { data, isLoading, isError } = useInsuranceStatsByProfile();
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     if (isError || !data) {
-        return (
-            <div className="flex items-center justify-center text-destructive text-center py-80">
-                Erro ao carregar dados.
-            </div>
-        );
+        return <Error />;
     }
 
     return (

@@ -16,12 +16,14 @@ import { ThreeDotsIcon } from "../icons/ThreeDotsIcon";
 import { useClients } from "@/hooks/useClientData";
 import { getUpdateStatus } from "@/lib/dateUtils";
 import { formatCurrency, getInitials } from "@/utils/string";
+import Loading from "../ui/Loading";
+import Error from "../ui/Error";
 
 const ITEMS_PER_PAGE = 4;
 
 const PaginatedTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const { data, isError } = useClients(currentPage, 4);
+    const { data, isLoading, isError } = useClients(currentPage, 4);
 
     const handlePageChange = useCallback(
         (newPage: number) => {
@@ -43,13 +45,14 @@ const PaginatedTable = () => {
         [emptyRowsCount]
     );
 
-    if (isError || !data) {
-        return (
-            <div className="flex items-center justify-center text-destructive text-center py-[11.5rem]">
-                Erro ao carregar dados.
-            </div>
-        );
+    if (isLoading) {
+        return <Loading />;
     }
+
+    if (isError || !data) {
+        return <Error />;
+    }
+
     return (
         <>
             <Table>

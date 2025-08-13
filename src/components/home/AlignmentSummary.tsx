@@ -2,6 +2,8 @@
 
 import { DataBar } from "../ui/DataBar";
 import { useAlignmentDistribution } from "@/hooks/usePlanningData";
+import Loading from "../ui/Loading";
+import Error from "../ui/Error";
 
 const categories = [
     {
@@ -27,14 +29,14 @@ const categories = [
 ] as const;
 
 const AlignmentSummary = () => {
-    const { data, isError } = useAlignmentDistribution();
+    const { data, isLoading, isError } = useAlignmentDistribution();
+
+    if (isLoading) {
+        return <Loading />;
+    }
 
     if (isError || !data) {
-        return (
-            <div className="flex items-center justify-center text-destructive text-center py-[6.125rem]">
-                Erro ao carregar dados.
-            </div>
-        );
+        return <Error />;
     }
 
     return (
