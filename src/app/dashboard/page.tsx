@@ -10,7 +10,12 @@ export default function Dashboard() {
     return (
         <PageContainer>
             <div className="size-full py-16 pl-24 pr-20 flex flex-col gap-6">
-                <SearchableCombobox value="" onValueChange={(value) => {}} />
+                <SearchableCombobox
+                    value=""
+                    onValueChange={(value) => {
+                        console.log(value);
+                    }}
+                />
                 <DisplayClientMoney walletBalance={879930} />
                 <DisplayAssetsClasses />
                 <IndicatorsSection />
